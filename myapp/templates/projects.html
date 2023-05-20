@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<h1>CREAR PROYECTOS</h1>
+
+{% if messages %}
+		<div class="messages">
+		{% for message in messages %}
+			<div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>
+				{{ message }}
+			</div>
+		{% endfor %}
+		</div>
+	{% endif %}
+
+<h2>
+    Proyectos
+    
+    
+    {% for project in projects %}
+
+    
+    <h4>{{project.id}}</h4>
+    <h4>{{project.name}}</h4>
+    <button> <a href="{% url 'editarProyecto'  project.id %}">Editar</a></button>
+    <button> <a href="eliminarProyecto/{{project.id}}">Eliminar</a></button>
+    <button> <a href="">Agregar Tarea</a> </button>
+    {% endfor %}
+
+</h2><br>
+
+{% load bootstrap4 %}
+
+<form method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+
+    {% buttons %}
+    <button class="btn btn-success">
+        Guardar
+    </button>
+    {% endbuttons %}
+</form>
+
+{% endblock %}

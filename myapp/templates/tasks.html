@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<h1>CREAR TAREAS</h1>
+
+
+{% if messages %}
+		<div class="messages">
+		{% for message in messages %}
+			<div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>
+				{{ message }}
+			</div>
+		{% endfor %}
+		</div>
+	{% endif %}
+<h2>
+
+    Tareas
+    {% for task in tasks %}
+    <h4>{{task.title}}</h4>
+    <p>{{task.description}}</p>
+    <button > <a href="{% url 'editar'  task.id %}">Editar</a></button>
+    <button > <a href="{% url 'eliminar'  task.id %}">Eliminar</a></button>
+    {% endfor %}
+
+</h2>
+
+{% load bootstrap4 %}
+
+ <form method="post" novalidate>
+{% csrf_token %}
+
+    {% bootstrap_form form %}
+{% buttons %}
+<button class="btn btn-success">
+    Guardar
+</button> 
+{% endbuttons %}
+
+</form>
+
+{% endblock %}
